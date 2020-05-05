@@ -1,6 +1,6 @@
 import React from 'react';
 import logger from 'redux-logger';
-import redux, { createStore, compose, applyMiddleware } from "redux";
+import { createStore, compose, applyMiddleware } from "redux";
 import thunk from 'redux-thunk';
 
 import './App.css';

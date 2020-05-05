@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { alphaVantageApiKey } from '../config/alphaVantageConfig'
+import { alphaVantageApiKey } from '../services/alphaVantage'
 
 export const STOCK_FETCH_BEGIN         = 'STOCK_FETCH_BEGIN';
 export const STOCK_FETCH_SUCCESS       = 'STOCK_FETCH_SUCCESS';
