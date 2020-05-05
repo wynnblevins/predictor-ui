@@ -1,7 +1,7 @@
 import { NavBar } from './NavBar/NavBar';
-import { StocksList } from './StocksList/StocksList';
+import { SearchBox } from './SearchBox';
 
 export {
   NavBar,
-  StocksList
+  SearchBox
 }
