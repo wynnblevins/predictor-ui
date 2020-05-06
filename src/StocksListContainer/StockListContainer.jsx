@@ -13,7 +13,7 @@ class StocksListContainer extends React.Component {
   render() {
     return (
       <div>
-        <NavBar title="Market Predictor"></NavBar>        
+        <NavBar data-test="navbar" title="Market Predictor"></NavBar>        
         <Grid container>
           <Grid item xs={4}>          
             <SearchBox onSearchChange={ (e) => this.props.stockSearchTextChanged(e) }></SearchBox>

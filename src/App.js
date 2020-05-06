@@ -7,7 +7,7 @@ import './App.css';
 import StockListContainer from './StocksListContainer/StockListContainer';
 import { Provider } from 'react-redux';
 
-import rootReducer from './reducers'
+import { rootReducer } from './reducers'
 
 export const store = createStore(
   rootReducer,
