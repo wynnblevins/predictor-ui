@@ -1,10 +1,16 @@
 import axios from 'axios';
-import { timeSeriesURLForSymbol } from '../services/alphaVantage';
-import { store } from '../App';
+
+import alphaVantageService from '../services';
 
 export const ACTIVE_STOCK_FETCH_BEGIN = 'ACTIVE_STOCK_FETCH_BEGIN';
 export const ACTIVE_STOCK_FETCH_FAILED = 'ACTIVE_STOCK_FETCH_FAILED';
 export const ACTIVE_STOCK_FETCH_SUCCESS = 'ACTIVE_STOCK_FETCH_SUCCESS';
+export const ACTIVE_STOCK_SELECTED = 'ACTIVE_STOCK_SELECTED';
+
+export const activeStockSelected = (activeStock) => ({
+  type: ACTIVE_STOCK_SELECTED,
+  payload: { activeStock }
+})
 
 export const activeStockFetchBegin = () => ({
   type: ACTIVE_STOCK_FETCH_BEGIN
@@ -20,20 +26,17 @@ export const activeStockFetchError = error => ({
   payload: { error }
 });
 
-export const symbolClicked = (symbol) => fetchSymbolDetailsData(symbol)
-
-
 export const fetchSymbolDetailsData = (symbol) => {
   return function (dispatch) {
-    console.log('inside active stock fetch');
+    console.log('inside fetch symbol detail data');
     dispatch(activeStockFetchBegin());
-    console.log(timeSeriesURLForSymbol(symbol))
-    axios.get(timeSeriesURLForSymbol(symbol))
+    
+    axios.get(alphaVantageService.timeSeriesURLForSymbol(symbol))
       .then((response) => {
-        activeStockFetchSuccess(response.data)
+        dispatch(activeStockFetchSuccess(response.data))
       })
       .catch((err) => {
-        activeStockFetchError(err)
+        dispatch(activeStockFetchError(err))
       })
   } 
 }

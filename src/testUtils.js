@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import rootReducer from './src/reducers/';
+import rootReducer from './reducers';
 
 /**
  * Create a testing store with imported reducers, middleware, and initial state.

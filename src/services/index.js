@@ -1,5 +1,3 @@
-import { alphaVantageApiKey } from '.';
+import alphaVantageService from './alphaVantage';
 
-export {
-  alphaVantageApiKey,
-} 
+export default alphaVantageService;

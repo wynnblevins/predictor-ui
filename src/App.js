@@ -4,10 +4,10 @@ import { createStore, compose, applyMiddleware } from "redux";
 import thunk from 'redux-thunk';
 
 import './App.css';
-import StockListContainer from './StocksListContainer/StockListContainer';
 import { Provider } from 'react-redux';
 
-import { rootReducer } from './reducers'
+import rootReducer from './reducers';
+import { StockListContainer } from './containers'
 
 export const store = createStore(
   rootReducer,

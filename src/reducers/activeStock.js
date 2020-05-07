@@ -2,6 +2,11 @@ import * as actions from '../actions';
 
 export default function reduce(state = {}, action) {
   switch (action.type) {
+    case actions.ACTIVE_STOCK_SELECTED:
+      return {
+        ...state,
+        activeStock: action.payload
+      }
     case actions.ACTIVE_STOCK_FETCH_BEGIN:
       return {
         ...state,
@@ -16,7 +21,8 @@ export default function reduce(state = {}, action) {
     case actions.ACTIVE_STOCK_FETCH_SUCCESS:
       return {
         ...state,
-        pending: false
+        pending: false,
+        activeStock: action.payload
       }
     default:
       return state; 
