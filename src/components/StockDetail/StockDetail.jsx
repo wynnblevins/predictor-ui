@@ -1,30 +1,31 @@
 import React from 'react';
 
-export const StockDetail = (props) => {
+export const StockDetail = (props) => {  
   return (
     <div data-test="detail-section">
-      <h1 data-test="detail-hdr">Stock Details</h1>
-      <table data-test="detail-table">
+      { props.stock.activeStock ? <div>
+      <h1 data-test="detail-hdr">Stock Details </h1>
+      <table className="mui-table" data-test="detail-table">
+        <tbody>
         <tr data-test="ticker-row">
           <td>Symbol</td>
-          <td>{props.activeStock['Global Quote']['01. symbol']}</td>
+          <td>{props.stock.activeStock['1. symbol']}</td>
         </tr>
-        <tr data-test="closing-value-row">
-          <td>Prev. Closing Value</td>
-          <td>{props.activeStock['Global Quote']['08. previous close']}</td>
+        <tr data-test="name-row">
+          <td>Name</td>
+          <td>{props.stock.activeStock['2. name']}</td>
         </tr>
-        <tr data-test="last-trading-day-row">
-          <td>Last Trading Day</td>
-          <td>{props.activeStock['Global Quote']['07. latest trading day']}</td>
+        <tr data-test="type-row">
+          <td>Type</td>
+          <td>{props.stock.activeStock['3. type']}</td> 
         </tr>
-        <tr data-test="last-close-value">
-
+        <tr data-test="region-row">
+          <td>Region</td>
+          <td>{props.stock.activeStock['4. region']}</td> 
         </tr>
-        <tr data-test="change-percent-row">
-          
-        </tr>
-      </table>
+        </tbody>
+      </table> 
+      </div>: <h1>Search/Select Stock</h1> } 
     </div>
-    
   );
 }

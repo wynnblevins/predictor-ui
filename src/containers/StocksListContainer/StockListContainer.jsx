@@ -8,12 +8,8 @@ import { NavBar, SearchBox } from '../../components';
 import StockDetail from '../../components/StockDetail';
 
 export class StocksListContainer extends Component {
-  symbolClicked(match) {
-    
-    this.props.activeStockSelected(match[['1. symbol']])
-    
-    // This line performs rest call, commenting out for now
-    //this.props.fetchSymbolDetailsData()
+  symbolClicked = async (match) => {
+    this.props.activeStockSelected(match)
   }
   
   render() {
@@ -28,12 +24,13 @@ export class StocksListContainer extends Component {
             { this.props.stocks && this.props.stocks.stocks && this.props.stocks.stocks.stocks && this.props.stocks.stocks.stocks.bestMatches ? 
                 this.props.stocks.stocks.stocks.bestMatches.map((match) => {
                   return (
-                    <h1 onClick={ () => this.symbolClicked(match) } key={match['1. symbol']}>{match['1. symbol']}</h1>
+                    <h1 onClick={ () => {this.symbolClicked(match)} } key={match['1. symbol']}>{match['1. symbol']}</h1>
                   );
                 }) : null }
           </Grid>
           <Grid item xs={6}>
-              <StockDetail stock={this.activeStock}></StockDetail>
+            { this.props.activeStock && this.props.activeStock.activeStock ? 
+            <StockDetail stock={this.props.activeStock.activeStock}></StockDetail> : null }
           </Grid>
         </Grid>
       </div>

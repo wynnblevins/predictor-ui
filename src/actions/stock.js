@@ -19,9 +19,9 @@ export const fetchStocksFailure = error => ({
   payload: { error }
 });
 
-export const stockSearchTextChanged = updatedText => (fetchSymbolData(updatedText));
+export const stockSearchTextChanged = updatedText => (fetchSymbolsData(updatedText));
 
-export function fetchSymbolData(keyword) {
+export function fetchSymbolsData(keyword) {
   const apiKey = process.env.ALPHAVANTAGE_API_KEY;
   let endpoint = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${keyword}&apikey=${apiKey}`
   
