@@ -23,6 +23,10 @@ export const StockDetail = (props) => {
           <td>Region</td>
           <td>{props.stock.activeStock['4. region']}</td> 
         </tr>
+        <tr>
+          <td>Advice</td>
+          <td>{props.advice}</td>
+        </tr>
         </tbody>
       </table> 
       </div>: <h1>Search/Select Stock</h1> } 

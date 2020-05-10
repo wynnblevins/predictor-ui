@@ -1,4 +1,4 @@
-import alphaVantageService from './alphaVantage'
+import alphaVantageService from './alphaVantage.service'
 
 describe('alphavantage config service', () => {
   beforeEach(() => {});

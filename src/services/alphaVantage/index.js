@@ -1,0 +1,1 @@
+import alphaVantageService from './alphaVantage.service';
