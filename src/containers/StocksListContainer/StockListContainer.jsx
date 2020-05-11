@@ -3,15 +3,16 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
 
-import { stockSearchTextChanged, fetchSymbolDetailsData, activeStockSelected } from '../../actions';
+import { stockSearchTextChanged, fetchSymbolDetailsData, activeStockSelected, fetchPredictionData } from '../../actions';
 import { NavBar, SearchBox } from '../../components';
 import StockDetail from '../../components/StockDetail';
 
 export class StocksListContainer extends Component {
   symbolClicked = async (match) => {
-    this.props.activeStockSelected(match)
+    this.props.activeStockSelected(match);
+    this.props.fetchPredictionData(match);
   }
-  
+
   render() {
     return (
       <div>
@@ -29,8 +30,8 @@ export class StocksListContainer extends Component {
                 }) : null }
           </Grid>
           <Grid item xs={6}>
-            { this.props.activeStock && this.props.activeStock.activeStock ? 
-            <StockDetail stock={this.props.activeStock.activeStock}></StockDetail> : null }
+            { this.props.activeStock && this.props.activeStock.activeStock && this.props.prediction ?
+            <StockDetail stock={this.props.activeStock.activeStock} advice={this.props.prediction}></StockDetail> : null }
           </Grid>
         </Grid>
       </div>
@@ -41,7 +42,8 @@ export class StocksListContainer extends Component {
 function mapStateToProps(state) {
   return {
     stocks: state.stocks,
-    activeStock: state.activeStock
+    activeStock: state.activeStock,
+    prediction: state.prediction
   }
 }
 
@@ -49,7 +51,8 @@ function matchDispatchToProps(dispatch) {
   return bindActionCreators({ 
     activeStockSelected: activeStockSelected,
     stockSearchTextChanged: stockSearchTextChanged,
-    fetchSymbolDetailsData: fetchSymbolDetailsData
+    fetchSymbolDetailsData: fetchSymbolDetailsData,
+    fetchPredictionData: fetchPredictionData
   }, dispatch)
 }
 

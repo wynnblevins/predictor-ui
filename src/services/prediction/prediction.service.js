@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const predictionService = {
-  getOutlook: () => {
-    console.log('inside getOutlook method of prediction service');
+  getOutlook: async (stock) => {
+    return await axios.get(`http://localhost:8080/api/prediction/${stock['1. symbol']}`);
   }
 };
 

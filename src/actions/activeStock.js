@@ -28,7 +28,6 @@ export const activeStockFetchError = error => ({
 
 export const fetchSymbolDetailsData = (symbol) => {
   return function (dispatch) {
-    console.log('inside fetch symbol detail data');
     dispatch(activeStockFetchBegin());
     
     axios.get(alphaVantageService.timeSeriesURLForSymbol(symbol))

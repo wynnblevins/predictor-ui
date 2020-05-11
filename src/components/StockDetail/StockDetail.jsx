@@ -1,6 +1,8 @@
 import React from 'react';
 
 export const StockDetail = (props) => {  
+  console.log(props);
+  
   return (
     <div data-test="detail-section">
       { props.stock.activeStock ? <div>
@@ -8,24 +10,24 @@ export const StockDetail = (props) => {
       <table className="mui-table" data-test="detail-table">
         <tbody>
         <tr data-test="ticker-row">
-          <td>Symbol</td>
+          <td>Symbol:</td>
           <td>{props.stock.activeStock['1. symbol']}</td>
         </tr>
         <tr data-test="name-row">
-          <td>Name</td>
+          <td>Name:</td>
           <td>{props.stock.activeStock['2. name']}</td>
         </tr>
         <tr data-test="type-row">
-          <td>Type</td>
+          <td>Type:</td>
           <td>{props.stock.activeStock['3. type']}</td> 
         </tr>
         <tr data-test="region-row">
-          <td>Region</td>
+          <td>Region:</td>
           <td>{props.stock.activeStock['4. region']}</td> 
         </tr>
         <tr>
-          <td>Advice</td>
-          <td>{props.advice}</td>
+          <td>Advice:</td>
+          <td>{props.advice.prediction ? (props.advice.prediction.valueWillIncrease ? <span>Buy</span> : <span>Buy</span>): <span>...loading</span> }</td> 
         </tr>
         </tbody>
       </table> 
