@@ -27,7 +27,7 @@ export const StockDetail = (props) => {
         </tr>
         <tr>
           <td>Advice:</td>
-          <td>{props.advice.prediction ? (props.advice.prediction.valueWillIncrease ? <span>Buy</span> : <span>Buy</span>): <span>...loading</span> }</td> 
+          <td>{props.advice.prediction ? (props.advice.prediction.valueWillIncrease ? <span>Buy</span> : <span>Sell</span>): <span>...loading</span> }</td> 
         </tr>
         </tbody>
       </table> 
