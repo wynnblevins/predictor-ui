@@ -1,6 +1,8 @@
 import React from 'react';
 
 export const StockDetail = (props) => {  
+  console.log(props);
+  
   return (
     <div data-test="detail-section">
       { props.stock.activeStock ? <div>
@@ -25,7 +27,7 @@ export const StockDetail = (props) => {
         </tr>
         <tr>
           <td>Advice</td>
-          <td>{props.advice}</td>
+          <td>{props.advice.prediction && props.advice.prediction.valueWillIncrease ? <p>Buy</p> : <p>Sell</p> }</td>
         </tr>
         </tbody>
       </table> 
