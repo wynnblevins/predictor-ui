@@ -1,5 +1,7 @@
-import StockListContainer from './StocksListContainer'
+import AllStocksView from './AllStocksView';
+import MyStocksList from './MyStocksList';
 
 export {
-  StockListContainer
-};
+  MyStocksList,
+  AllStocksView
+}

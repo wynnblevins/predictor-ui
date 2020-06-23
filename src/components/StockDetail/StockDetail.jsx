@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@material-ui/core';
 
 export const StockDetail = (props) => {  
   return (
@@ -29,6 +30,7 @@ export const StockDetail = (props) => {
         </tr>
         </tbody>
       </table> 
+      <Button color="primary" onClick={props.onAddToMyStocksClicked}>Add To My Stocks</Button>
       </div>: <h1>Search/Select Stock</h1> } 
     </div>
   );
