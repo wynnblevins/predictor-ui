@@ -4,7 +4,7 @@ import StockDetail from '../../components/StockDetail';
 import { SearchBox } from '../../components/SearchBox';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { activeStockSelected, stockSearchTextChanged, fetchSymbolDetailsData, addToMyStocksClicked, watchedStockAdded } from '../../actions';
+import { activeStockSelected, stockSearchTextChanged, fetchSymbolDetailsData, watchedStockAdded } from '../../actions';
 
 class AllStocksView extends Component {
   symbolClicked = async (match) => {
@@ -12,7 +12,6 @@ class AllStocksView extends Component {
   }
 
   addToMyStocksClicked = async (stock) => {
-    console.log('inside add to my stocks');
     this.props.addToMyStocksClicked(stock)
   }
 

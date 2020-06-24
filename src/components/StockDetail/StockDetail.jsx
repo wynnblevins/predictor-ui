@@ -30,7 +30,7 @@ export const StockDetail = (props) => {
         </tr>
         </tbody>
       </table> 
-      <Button color="primary" onClick={props.onAddToMyStocksClicked}>Add To My Stocks</Button>
+      <Button color="primary" onClick={() => props.onAddToMyStocksClicked(props.stock.activeStock)}>Add To My Stocks</Button>
       </div>: <h1>Search/Select Stock</h1> } 
     </div>
   );
