@@ -4,18 +4,20 @@ import { bindActionCreators } from 'redux';
 import { watchedStockRemoved } from '../../actions';
 
 class MyStocksList extends Component {
-  removeFromMyStocksClicked() {
-    console.log('Inside remove from myStocksClicked');
+  removeFromMyStocksClicked(e, ndx) {
+    this.props.watchedStockRemoved(e, ndx)
   }
   
   render() {
+    console.log(this.props)
     return (
       <div>
+        
         <ul>
-          { this.props.watchedStocks && this.props.watchedStocks.watchedStocks ? this.props.watchedStocks.watchedStocks.map((stock) => {
+          { this.props.watchedStocks ? this.props.watchedStocks.map((stock, ndx) => {    
             return (
-              <li key={stock['1. symbol']}>{stock['1. symbol']}
-                <button type="button" onClick={() => this.removeFromMyStocksClicked()}>Stop Watching</button>
+              <li key={stock.stock['1. symbol']}>{stock.stock['1. symbol']}
+                <button type="button" onClick={() => this.removeFromMyStocksClicked(stock, ndx)}>Stop Watching</button>
               </li>
             )
           }) : null }

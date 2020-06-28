@@ -5,13 +5,13 @@ export default function reduce(state = {}, action) {
     case actions.ACTIVE_STOCK_SELECTED:
       return {
         ...state,
-        activeStock: action.payload
+        ...action.payload
       }
     case actions.ACTIVE_STOCK_FETCH_BEGIN:
       return {
         ...state,
-        activeStock: action.payload,
-        pending: true
+        pending: true,
+        ...action.payload,
       }
     case actions.ACTIVE_STOCK_FETCH_FAILED:
       return {
@@ -22,7 +22,7 @@ export default function reduce(state = {}, action) {
       return {
         ...state,
         pending: false,
-        activeStock: action.payload
+        ...action.payload
       }
     default:
       return state; 
