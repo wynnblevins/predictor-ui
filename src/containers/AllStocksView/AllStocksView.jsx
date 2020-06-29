@@ -22,16 +22,14 @@ class AllStocksView extends Component {
             <SearchBox onSearchChange={ (e) => this.props.stockSearchTextChanged(e) }></SearchBox>
         </Grid>    
         <Grid item xs={2}>
-        { this.props.stocks && this.props.stocks.stocks && this.props.stocks.stocks.bestMatches ? 
-        this.props.stocks.stocks.bestMatches.map((match) => {
+        { this.props.stocks && this.props.stocks.bestMatches ? this.props.stocks.bestMatches.map((match) => {
           return (
-            <h1 onClick={ () => {this.symbolClicked(match)} } key={match['1. symbol']}>{match['1. symbol']}</h1>
+            <h1 onClick={ () => { this.symbolClicked(match)} } key={match['1. symbol']}>{match['1. symbol']}</h1>
           );
         }) : null }
         </Grid>
         <Grid item xs={5}>
-          { this.props.activeStock ? 
-          <StockDetail onAddToMyStocksClicked={this.addToMyStocksClicked} stock={this.props.activeStock}></StockDetail> : null }
+          <StockDetail onAddToMyStocksClicked={this.addToMyStocksClicked} stock={this.props.activeStock}></StockDetail>
         </Grid>
       </Grid>
     )

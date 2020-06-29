@@ -18,7 +18,7 @@ export default function reduce(state = [], action) {
     case STOCK_FETCH_SUCCESS:
       return {
         ...state,
-        stocks: action.payload,
+        ...action.payload,
         pending: false
       }
     default:

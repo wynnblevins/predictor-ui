@@ -22,7 +22,7 @@ export default function reduce(state = {}, action) {
       return {
         ...state,
         pending: false,
-        ...action.payload
+        ...action.payload.activeStock
       }
     default:
       return state; 

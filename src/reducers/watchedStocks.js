@@ -8,10 +8,9 @@ export default function reduce(state = [], action) {
         action.payload
       ]      
     case actions.WATCHED_STOCK_REMOVED:
-      const newState = state.filter( (val) => { 
+      return state.filter((val) => { 
         return val.stock['1. symbol'] !== action.payload.stock.stock['1. symbol'] 
       });
-      return newState; 
     default:
         return state;
     }
