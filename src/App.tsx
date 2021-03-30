@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import {
   AppBar,
@@ -11,26 +11,100 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import axios from "axios";
+import { fetchStockTickersData } from "./api/StockTickerController";
+import {
+  fetchHistoryData,
+  StockHistoryResponse,
+} from "./api/StockHistoryController";
+import LineChart from "react-linechart";
+
+export interface Stock {
+  active: boolean;
+  codes: {
+    cik: string;
+    figiuid: string;
+    scfigi: string;
+    cfigi: string;
+    figi: string;
+  };
+  currency: string;
+  locale: string;
+  market: string;
+  name: string;
+  primaryExch: string;
+  ticker: string;
+  type: string;
+  updated: string;
+  url: string;
+}
+
+export interface StockValueSnapshot {
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+}
 
 const App = () => {
-  const handleStockSelect = (stock: object) => {
-    setState({ activeStock: stock, stocks: state.stocks });
-  };
-
-  const fetchStockTickers = async (searchText: string) => {
-    let endpoint = `https://api.polygon.io/v2/reference/tickers?search=${searchText}&sort=ticker&perpage=50&page=1&apiKey=tFFNwM8_7kLNaEpuCRpqsgqTlJvDDY4K`;
-    const response = await axios.get(endpoint);
-    setState({ stocks: response.data.tickers, activeStock: null });
-  };
-
   const [state, setState] = useState({
-    stocks: [],
+    searchResults: [],
     activeStock: null,
     searchText: "",
+    chartData: [],
   });
 
-  if (state.stocks && state.stocks.length === 0) fetchStockTickers("");
+  useEffect(() => {
+    async function getData(activeStock) {
+      const historyResponse = await fetchHistoryData(activeStock);
+      setState({
+        ...state,
+        highChartData: buildGraphArray(historyResponse, "2. high"),
+      });
+    }
+    if (state.activeStock) {
+      getData(state.activeStock);
+    }
+  }, [state.activeStock]);
+
+  const buildGraphArray = (
+    response: StockHistoryResponse,
+    responseKey: string
+  ) => {
+    if (!response.data["Time Series (5min)"]) {
+      return [];
+    }
+
+    const values: any[] = Object.values(response.data["Time Series (5min)"]);
+    const data = [
+      {
+        color: "steelblue",
+        points: values.map((value: any, i: any) => {
+          return { y: value[responseKey], x: i };
+        }),
+      },
+    ];
+    return data;
+  };
+
+  const onSearchTextChange = async (e) => {
+    const searchResults = await fetchStockTickersData(e.target.value);
+    setState({
+      ...state,
+      searchText: e.target.value,
+      searchResults: searchResults.data.tickers,
+    });
+  };
+
+  const handleStockSelect = async (stock: Stock) => {
+    const historyResponse = await fetchHistoryData(stock);
+    const chartData: any = buildGraphArray(historyResponse, "2. high");
+    setState({
+      ...state,
+      activeStock: stock,
+      chartData: chartData,
+    });
+  };
 
   return (
     <>
@@ -44,33 +118,37 @@ const App = () => {
           <Grid item xs={6} md={3}>
             <TextField
               onChange={(e) => {
-                setState({ searchText: e.target.value });
-                fetchStockTickers(e.target.value);
+                onSearchTextChange(e);
               }}
               id="stockSearchBox"
               label="Search"
             />
             <div>
-              {state.stocks ? (
-                state.stocks.map((stock) => {
-                  return (
-                    <List>
-                      <ListItem>
+              <List>
+                {state.searchResults ? (
+                  state.searchResults.map((stock, i) => {
+                    return (
+                      <ListItem key={i}>
                         <ListItemText
                           primary={`${stock.ticker} : ${stock.name}`}
                           onClick={() => handleStockSelect(stock)}
                         />
                       </ListItem>
-                    </List>
-                  );
-                })
-              ) : (
-                <></>
-              )}
+                    );
+                  })
+                ) : (
+                  <></>
+                )}
+              </List>
             </div>
           </Grid>
-          <Grid item xs={6} md={9}>
+          <Grid item xs={3} md={3}>
             {state.activeStock ? <h2>{state.activeStock.name}</h2> : null}
+          </Grid>
+          <Grid item xs={6} md={3}>
+            {state.chartData && (
+              <LineChart width={600} height={400} data={state.chartData} />
+            )}
           </Grid>
         </Grid>
       </Container>
