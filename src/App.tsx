@@ -59,7 +59,8 @@ const App = () => {
       const historyResponse = await fetchHistoryData(activeStock);
       setState({
         ...state,
-        highChartData: buildGraphArray(historyResponse, "2. high"),
+        chartData: buildGraphArray(historyResponse, "2. high"),
+        activeStock: activeStock,
       });
     }
     if (state.activeStock) {
@@ -70,7 +71,7 @@ const App = () => {
   const buildGraphArray = (
     response: StockHistoryResponse,
     responseKey: string
-  ) => {
+  ): any => {
     if (!response.data["Time Series (5min)"]) {
       return [];
     }
@@ -88,7 +89,7 @@ const App = () => {
   };
 
   const onSearchTextChange = async (e) => {
-    const searchResults = await fetchStockTickersData(e.target.value);
+    const searchResults: any = await fetchStockTickersData(e.target.value);
     setState({
       ...state,
       searchText: e.target.value,
@@ -96,13 +97,13 @@ const App = () => {
     });
   };
 
-  const handleStockSelect = async (stock: Stock) => {
+  const handleStockSelect = async (stock: any) => {
     const historyResponse = await fetchHistoryData(stock);
     const chartData: any = buildGraphArray(historyResponse, "2. high");
     setState({
       ...state,
-      activeStock: stock,
       chartData: chartData,
+      activeStock: stock.name,
     });
   };
 
@@ -126,7 +127,7 @@ const App = () => {
             <div>
               <List>
                 {state.searchResults ? (
-                  state.searchResults.map((stock, i) => {
+                  state.searchResults.map((stock: any, i: number) => {
                     return (
                       <ListItem key={i}>
                         <ListItemText
@@ -143,7 +144,7 @@ const App = () => {
             </div>
           </Grid>
           <Grid item xs={3} md={3}>
-            {state.activeStock ? <h2>{state.activeStock.name}</h2> : null}
+            {state.activeStock ? <h2>{state?.activeStock}</h2> : null}
           </Grid>
           <Grid item xs={6} md={3}>
             {state.chartData && (
